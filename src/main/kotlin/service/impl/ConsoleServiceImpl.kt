@@ -7,8 +7,6 @@ import exeption.WrongOperationTypeException
 import service.ConsoleService
 
 object ConsoleServiceImpl : ConsoleService {
-    private val figureService: FigureServiceImpl = FigureServiceImpl
-
     override fun work() {
         while (true) {
             println(
