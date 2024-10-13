@@ -8,5 +8,5 @@ class BadPropertyException : RuntimeException {
     constructor(badProperty: Double) : super("Введено неверное значение параметра property: $badProperty")
 }
 
-class WrongFigureTypeException(val figure: String) :
+class WrongFigureTypeException(figure: String) :
     RuntimeException("Введен неизвестный тип фигуры: $figure")

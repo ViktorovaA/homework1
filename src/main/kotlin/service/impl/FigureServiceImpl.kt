@@ -26,7 +26,7 @@ object FigureServiceImpl : FigureService {
 
     override fun getPerimeter(): List<Double> {
         val perimeter = mutableListOf<Double>()
-        for(figure in figures) {
+        for (figure in figures) {
             if (figure is Circle) {
                 perimeter.add(2 * kotlin.math.PI * figure.property)
             }
@@ -39,7 +39,7 @@ object FigureServiceImpl : FigureService {
 
     override fun getArea(): List<Double> {
         val area = mutableListOf<Double>()
-        for(figure in figures) {
+        for (figure in figures) {
             if (figure is Circle) {
                 area.add(kotlin.math.PI * figure.property * figure.property)
             }
