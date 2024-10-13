@@ -1,23 +1,13 @@
+package service.impl
 
-fun getOperation(operation: String): Operation {
-    return when (operation) {
-        "1", "1)" -> Operation.INSERT
-        "2", "2)" -> Operation.GET_AREA
-        "3", "3)" -> Operation.GET_PERIMETER
-        "4", "4)" -> Operation.EXIT
-        else -> throw WrongOperationTypeException(operation)
-    }
-}
-
-fun getProperty(): Double {
-    val propertyStr = readln()
-    val property = propertyStr.toDoubleOrNull() ?: throw BadPropertyException(propertyStr)
-    if (property <= 0) throw BadPropertyException(property)
-    return property
-}
+import enums.Operation
+import exeption.BadPropertyException
+import exeption.WrongFigureTypeException
+import exeption.WrongOperationTypeException
+import service.ConsoleService
 
 object ConsoleServiceImpl : ConsoleService {
-    val figureService: FigureServiceImpl = FigureServiceImpl
+    private val figureService: FigureServiceImpl = FigureServiceImpl
 
     override fun work() {
         while (true) {
@@ -41,25 +31,31 @@ object ConsoleServiceImpl : ConsoleService {
     }
 
     private fun getPerimiter() {
-        println("Суммарный периметр всех фигур - ${figureService.getPerimeter()}")
+        println("периметры фигур:")
+        for ((index, perimeter) in FigureServiceImpl.getPerimeter().withIndex()) {
+            println("Фигура ${index + 1}) $perimeter")
+        }
     }
 
     private fun getArea() {
-        println("Суммарная площадь всех фигур - ${figureService.getArea()}")
+        println("площади фигур:")
+        for ((index, area) in FigureServiceImpl.getArea().withIndex()) {
+            println("Фигура ${index + 1}) $area")
+        }
     }
 
     private fun addFigure() {
         println("Введите тип фигуры, которую хотите добавить:\n1) круг\n2) квадрат")
-        when (readln()) {
+        when (val figure = readln()) {
             "1", "1)" -> {
                 println("Введите радиус круга")
-                figureService.addCircle(getProperty())
+                FigureServiceImpl.addCircle(getProperty())
             }
             "2", "2)" -> {
                 println("Введите сторону квадрата")
-                figureService.addSquare(getProperty())
+                FigureServiceImpl.addSquare(getProperty())
             }
-            else -> println("Неизвестный тип. Попробуйте еще раз")
+            else -> throw WrongFigureTypeException(figure)
         }
     }
 }

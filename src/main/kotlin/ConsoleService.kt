@@ -1,3 +1,0 @@
-interface ConsoleService {
-    fun work()
-}
